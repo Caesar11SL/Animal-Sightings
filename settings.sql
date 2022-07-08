@@ -1,0 +1,3 @@
+CREATE DATABASE animal;
+CREATE USER animals WITH PASSWORD 'monkey';
+GRANT ALL PRIVILEGES ON DATABASE animal to animals;
