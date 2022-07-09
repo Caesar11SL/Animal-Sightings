@@ -10,6 +10,7 @@ django-google-maps = "*"
 django-extensions = "*"
 ipython = "*"
 djangorestframework = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 
