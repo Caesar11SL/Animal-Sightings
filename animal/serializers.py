@@ -11,32 +11,14 @@ class UserSerializer(serializers.ModelSerializer):
         
         user = User.objects.create_user(
             username=validated_data["username"],
-            password=validated_data["password"],
             email=validated_data["email"],
+            password=validated_data["password"],
         )
         return user
 
     class Meta:
         model = User
         fields = ("id", "username", "password", "email")
-
-
-class PostSerializer(serializers.HyperlinkedModelSerializer):
-    comments = serializers.HyperlinkedRelatedField( 
-        view_name = 'comment_detail',
-        many = True,
-        read_only = True
-    )
-
-    post_url = serializers.ModelSerializer.serializer_url_field(
-       view_name='post_detail'
-    )
-
-    class Meta:
-        model = Post
-        fields = ('id', 'title', 'description', 'photo', 'post_url', 'comments')
-
-
 
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     post = serializers.HyperlinkedRelatedField(
@@ -49,6 +31,21 @@ class CommentSerializer(serializers.HyperlinkedModelSerializer):
         source='post'
     )
 
+
     class Meta: 
         model = Comment
         fields = ('id', 'post', 'post_id', 'body', 'author' )
+
+class PostSerializer(serializers.HyperlinkedModelSerializer):
+    comments = CommentSerializer(
+        many=True,
+        read_only=True
+    )
+
+    post_url = serializers.ModelSerializer.serializer_url_field(
+       view_name='post_detail'
+    )
+
+    class Meta:
+        model = Post
+        fields = ('id', 'title', 'description', 'photo', 'comments', 'post_url')
