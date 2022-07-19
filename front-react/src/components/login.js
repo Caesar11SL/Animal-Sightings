@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
 import {signin, signup} from '../services/Auth'
 
 function LoginForm({setUserSignedIn, setAccessToken}) {
@@ -12,19 +12,12 @@ function LoginForm({setUserSignedIn, setAccessToken}) {
 
     const [isSignup, setIsSignup] = useState(false);
     const [formData, setFormData] = useState(initialState);
-    const dispatch = useDispatch();
-    const history = useNavigate();
+    // const dispatch = useDispatch();
+    // const history = useNavigate();
 
     const handleSubmit = (e) =>{
         e.preventDefault();
         console.log(formData);
-
-        if(isSignup){
-            dispatch(signup(formData, history))
-        } else{
-            dispatch(signin(formData,history))
-        }
-
     }
     const handleChange = (e) =>{
         setFormData({...formData, [e.target.name]: e.target.value});

@@ -1,62 +1,74 @@
 import React, { useState, useEffect } from 'react';
 import PostDelete from './PostDelete';
-import { useParams, Link } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 
 
 function PostEdit() {
-  const [post, setPost] = useState('');
+  
+  const postRestEndpoint = 'posts-protected/'
+  let { id } = useParams();
+  
   const initialState = {
     title: '',
-    description: ''
+    description: '',
+    photo: ''
+}
+
+  const [formData, setFormData] = useState(initialState)
+  
+  const fetchPost = () => {
+    fetch(process.env.REACT_APP_API_URL + postRestEndpoint + id)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      setFormData(data);
+    });
   }
-
-    const postRestEndpoint = 'posts-protected/'
-    let { id } = useParams();
-
-    const [postedit, setPostEdit] = useState(initialState);
-
-
-    useEffect(() => {
-      fetchPost();
+  
+  useEffect(() => {
+    fetchPost();
   }, []);
-
-    const handleSubmit = event => {
-        const url = (process.env.REACT_APP_API_URL + postRestEndpoint + id )
-        const opts = {
-          method: 'PATCH',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(initialState),
-        }
-        fetch(url, opts)
-        .then(res => res.json())
+  const url = (process.env.REACT_APP_API_URL + postRestEndpoint + id )
+  
+  const handleSubmit = event => {
+    event.preventDefault();
+    const opts = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    }
+    fetch(url, opts)
+    .then(res => res.json())
         .then(data => {
           console.log(data)
         })
+        console.log(formData)
+
       };
-
-      const fetchPost = () => {
-        fetch(process.env.REACT_APP_API_URL + postRestEndpoint + id)
-          .then(res => res.json())
-          .then(data => {
-              console.log(data)
-              setPost(data);
-          });
-      }
-
+      
       const onChange = (e) => {
-        setPostEdit({...postedit, [e.target.name]: e.target.value})
+        setFormData({...formData, [e.target.name]: e.target.value})
       }
+
 
     return(
         <>
   {/* {console.log(post)} */}
-        <form>
-          <label onSubmit={handleSubmit}>Title:</label>
-            <input id="title" name="title" type="text" value={post.title} onChange={onChange} />
+        <form onSubmit={handleSubmit} >
+          <label>Title:</label>
+            <input id="title" name="title" type="text" value={formData.title} onChange={onChange} style={{height: "50px", width: "450px" }}/>
+            <br/>
+            <br/>
           <label>Description:</label>
-            <input id="description" name="description" type="text" value={post.description} onChange={onChange}/>
+            <input id="description" name="description" type="text" value={formData.description} onChange={onChange} style={{height: "50px", width: "400px" }}/>
+            <br/>
+            <br/>
+          <label>Photo:</label>
+            <input id="photo" name="photo" type="text" value={formData.photo} onChange={onChange} style={{height: "50px", width: "440px" }}/>
+            <br/>
+            <br/>
           <button type='submit'>Submit</button>
         </form>
         </>

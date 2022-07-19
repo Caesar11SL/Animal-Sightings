@@ -37,12 +37,20 @@ function CreatePost() {
         <form onSubmit={handleSubmit}>
             <label>author:</label>
             <input id="author" name="author" type="text" onChange={handleChange}/>
+            <br/>
+            <br/>
             <label>title:</label>
             <input id="title" name="title" type="text" onChange={handleChange}/>
+            <br/>
+            <br/>
             <label>description:</label>
             <input id="description" name="description" type="text" onChange={handleChange}/>
+            <br/>
+            <br/>
             <label>photo:</label>
             <input id="photo" name="photo" type="text" onChange={handleChange}/>
+            <br/>
+            <br/>
             <button type="submit">submit</button>
         </form>
         </>

@@ -55,7 +55,7 @@ function PostDetail() {
         <div>  
         <h2>{post.title}</h2>
         <h3>{post.description}</h3>
-        <img src={`${post.photo}`} alt='animal'></img>
+        <img src={`${post.photo}`} alt='animal' width="450" height="500"></img>
 
         <Link to={`/posts/edit/${id}`}>Edit</Link>
         <Link to={`/posts/delete/${id}`}>Delete</Link>
@@ -66,7 +66,7 @@ function PostDetail() {
 
 
         <h3>create comment</h3>
-        <CreateComment/>
+        <CreateComment />      
         </div>
         </>
     )

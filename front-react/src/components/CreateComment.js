@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useParams } from 'react-router-dom';
 
-function CreateComment({ id }) {
+function CreateComment() {
+  let { id } = useParams();
     const initialState = {
-        post_id: {id},
+        post_id: id,
         author: '',
         body: '',
     }
@@ -28,6 +30,7 @@ function CreateComment({ id }) {
       .then(data => {
         console.log(data)
       })
+      console.log(formState)
     };
 
     return (
