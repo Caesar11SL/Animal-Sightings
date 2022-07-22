@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import CreateComment from './CreateComment';
+import '../App.css';
 
 function PostDetail() {
 
@@ -51,20 +52,26 @@ function PostDetail() {
 
     return(
         <>
-        <h1>Post Detail</h1>
-        <div>  
+        <div className='detail-container'>
+
+        <div className='post-detail'>  
         <h2>{post.title}</h2>
         <h3>{post.description}</h3>
-        <img src={`${post.photo}`} alt='animal' width="450" height="500"></img>
+        </div>
 
-        <Link to={`/posts/edit/${id}`}>Edit</Link>
-        <Link to={`/posts/delete/${id}`}>Delete</Link>
-        
+        <img className='detail-image' src={`${post.photo}`} alt='animal'></img>
+
+        <div className='detail-btns'>
+        <Link className='edit' to={`/posts/edit/${id}`}>Edit</Link>
+        <Link className='delete-btn' to={`/posts/delete/${id}`}>Delete</Link>
+        </div>
+        </div>
+        <div className='comments'>
         <p>Comments:</p>
         {<MapComment/>}
+        </div>
 
-
-
+        <div className='create-comment'>
         <h3>create comment</h3>
         <CreateComment />      
         </div>

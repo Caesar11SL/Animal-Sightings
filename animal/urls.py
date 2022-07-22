@@ -16,5 +16,5 @@ urlpatterns = [
     path('comments/<int:pk>', views.CommentDetail.as_view(), name='comment_detail'),
 
 
-    path("api/signup/", views.CreateUserView.as_view()),
+    path("api/signup", views.CreateUserView.as_view()),
 ]

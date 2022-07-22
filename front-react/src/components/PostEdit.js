@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PostDelete from './PostDelete';
 import { useParams} from 'react-router-dom';
+import '../App.css';
 
 
 function PostEdit() {
@@ -55,7 +56,7 @@ function PostEdit() {
 
     return(
         <>
-  {/* {console.log(post)} */}
+        <div className='edit-container'> 
         <form onSubmit={handleSubmit} >
           <label>Title:</label>
             <input id="title" name="title" type="text" value={formData.title} onChange={onChange} style={{height: "50px", width: "450px" }}/>
@@ -71,6 +72,7 @@ function PostEdit() {
             <br/>
           <button type='submit'>Submit</button>
         </form>
+        </div>
         </>
     )
 }

@@ -23,48 +23,51 @@ function App() {
 
   return (
     <>
+      <div className='wrapper'>
     <Router>
-    <div>
-      <h1>Animal Sightings</h1>
-      <nav>
-      <Link to="/posts">Home | </Link>
-      <Link to="/signup"> Sign Up | </Link>
-      <Link to="/login">Login | </Link>
-      <Link to="/logout">Logout</Link>
-      <br/>
-      <Link to="/posts/create">Make a Post!</Link>
-      
-      </nav>
-    </div>
 
-    {userSignedIn ? (
+      
+    <div className='nav'>
+
+      <Link to="/posts/create" className='make-post'>Make a Post!</Link>
+
+      <Link to="/" className='head'>Animal Sightings</Link>
+      
+      <div className='links'>
+        <Link to="/posts" className='link'>Home | </Link>
+        <Link to="/signup" className='link'> Sign Up | </Link>
+        <Link to="/login" className='link'>Login  </Link>
+
+      </div>
+
+    </div>
+    {/* {userSignedIn ? (
       <nav>
           <span>signed in as: {userSignedIn}</span>
         </nav>  
         ) : null
-      }
-
-    <h1>Welcome Traveler</h1>
+      } */}
 
       <Routes>
-
       <Route path="/" exact element={<HomePage />} />
 
-        <Route path="login" exact element={
+      <Route path="login" exact element={
            <LoginForm 
             setUserSignedIn={setUserSignedIn} 
             setAuthToken={setAuthToken}
-            /> }/>
+          />
+       }/>
 
-      <Route path="/posts" exact element={<PostList 
+      <Route path="/posts" exact element={
+          <PostList 
             setUserSignedIn={setUserSignedIn} 
             setAuthToken={setAuthToken}
-            />}
-            />
+          />}
+         />
       
       <Route path="/signup" exact element={<SignUpForm 
-            // setUserSignedIn={setUserSignedIn} 
-            // setAuthToken={setAuthToken}
+            setUserSignedIn={setUserSignedIn} 
+            setAuthToken={setAuthToken}
             />}
             />
       <Route path="/posts/:id" exact element={<PostDetail />
@@ -79,8 +82,10 @@ function App() {
 
       </Routes>
     </Router>
+    </div>
     </>
   );
 }
 
 export default App;
+ 

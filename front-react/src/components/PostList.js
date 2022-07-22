@@ -25,8 +25,10 @@ function PostList({ setUserSignedIn, setAccessToken }) {
         posts.map((post, index) => {
             return( 
                 <>
+                <div>
                 <p key={post}>{post.title}</p>
                 <Link to={`/posts/${post.id}`}> Detail </Link>
+                </div>
                 </>
                 )
             }) : null
@@ -35,7 +37,9 @@ function PostList({ setUserSignedIn, setAccessToken }) {
     
     return (
         <>
+        <div className='list-container'>
         {<MapPost />}
+        </div>
         </>
     );
 }

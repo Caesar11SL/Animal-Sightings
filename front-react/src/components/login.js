@@ -1,7 +1,4 @@
-import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
-import {signin, signup} from '../services/Auth'
+import React, { useState, useEffect } from 'react';
 
 function LoginForm({setUserSignedIn, setAccessToken}) {
 
@@ -12,16 +9,30 @@ function LoginForm({setUserSignedIn, setAccessToken}) {
 
     const [isSignup, setIsSignup] = useState(false);
     const [formData, setFormData] = useState(initialState);
-    // const dispatch = useDispatch();
-    // const history = useNavigate();
 
-    const handleSubmit = (e) =>{
+    async function loginUser(credentials) {
+        return fetch(process.env.REACT_APP_API_URL + 'api/token/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(credentials)
+        })
+          .then(data => data.json())
+          .then(response => {
+            localStorage.setItem('token', response.access)
+            localStorage.setItem('refresh', response.refresh)
+          }
+          )
+       }
+
+    const handleSubmit = async (e) =>{
         e.preventDefault();
-        console.log(formData);
+        loginUser(formData)
+        
     }
     const handleChange = (e) =>{
         setFormData({...formData, [e.target.name]: e.target.value});
-
     }
     return (
         <>
@@ -30,13 +41,13 @@ function LoginForm({setUserSignedIn, setAccessToken}) {
         
         ) : (
 
-            <div>
+            <div className='login-container'>
       <h3>Login</h3>
         <form onSubmit={handleSubmit}> 
             <label>username:</label>
             <input id="username" name="username" type="text" onChange={handleChange}/>
             <label>password:</label>
-            <input id="password" name="username" type="password" onChange={handleChange}/>
+            <input id="password" name="password" type="password" onChange={handleChange}/>
             <button type="submit">Login</button>
         </form>
         <p>Need an Account?</p>

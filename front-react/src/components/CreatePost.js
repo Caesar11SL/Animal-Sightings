@@ -34,6 +34,7 @@ function CreatePost() {
 
     return (
         <>
+        <div className="create-post">
         <form onSubmit={handleSubmit}>
             <label>author:</label>
             <input id="author" name="author" type="text" onChange={handleChange}/>
@@ -51,8 +52,9 @@ function CreatePost() {
             <input id="photo" name="photo" type="text" onChange={handleChange}/>
             <br/>
             <br/>
-            <button type="submit">submit</button>
+            <button className="create-btn" type="submit">submit</button>
         </form>
+        </div>
         </>
     )
 }
