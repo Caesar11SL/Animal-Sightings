@@ -10,18 +10,20 @@ function LoginForm({setUserSignedIn, setAccessToken}) {
     const [isSignup, setIsSignup] = useState(false);
     const [formData, setFormData] = useState(initialState);
 
-    async function loginUser(credentials) {
+    function loginUser(formData) {
         return fetch(process.env.REACT_APP_API_URL + 'api/token/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(credentials)
+          body: JSON.stringify(formData)
         })
           .then(data => data.json())
           .then(response => {
-            localStorage.setItem('token', response.access)
-            localStorage.setItem('refresh', response.refresh)
+            if(response.data.access) {
+                localStorage.setItem('user', JSON.stringify(response.data))
+            }
+            return response.data
           }
           )
        }
@@ -29,11 +31,20 @@ function LoginForm({setUserSignedIn, setAccessToken}) {
     const handleSubmit = async (e) =>{
         e.preventDefault();
         loginUser(formData)
-        
     }
     const handleChange = (e) =>{
         setFormData({...formData, [e.target.name]: e.target.value});
     }
+
+    // function hasJWT() {
+    //     let flag = false;
+  
+    //     //check user has JWT token
+    //     localStorage.getItem("token") ? flag=true : flag=false
+    //    console.log(flag)
+    //     return flag
+
+    // }
     return (
         <>
         {isSignup ? (

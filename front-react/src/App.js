@@ -14,12 +14,10 @@ import PostDelete from './components/PostDelete';
 
 function App() {
 
-  const storedUser = localStorage.getItem("currentUser")
-  const storedAccessToken = localStorage.getItem("accessToken")
-  const storedRefreshToken = localStorage.getItem("refreshToken")
+  const [userSignedIn, setUserSignedIn] = useState('')
+  const [authToken, setAuthToken] = useState('')
 
-  const [userSignedIn, setUserSignedIn] = useState(storedUser)
-  const [authToken, setAuthToken] = useState(storedAccessToken)
+  
 
   return (
     <>
